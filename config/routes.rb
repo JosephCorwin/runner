@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'users/new'
+
 
   root 'static#home'
 
@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get 'faq', to: 'static#faq'
 
   get 'contact', to: 'static#contact'
+
+  get 'signup', to: 'users#new'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
