@@ -1,0 +1,265 @@
+body,
+*,
+*:after,
+*:before  {
+  box-sizing:border-box;
+}
+
+body {
+    position: relative;
+    width: 100%;
+    // height:100%;
+    @include gradient(white,$maincolor);
+    // @include gradient(white,black);
+    &.lock {
+    	position: fixed;
+    }
+}
+
+a:link,
+a:visited, 
+a:hover, 
+a:active, 
+a:focus {
+	text-decoration:none;
+	color:$secondcolor;
+
+}
+
+a,h1,h2,h3,h4,h4,p,span {
+	font-family:$font;
+	@include font(1);
+	color:$secondcolor;
+}
+
+.button {
+	position: relative;
+	overflow: hidden;
+	max-width: 200px;
+	display: block;
+	text-align:center;
+	@include margin($large-space-unit 0);
+	@include padding($large-space-unit);
+    @include gradient(white,$maincolor);
+    @include font(1.2);
+    line-height: 1em;
+    // letter-spacing: 2px;
+    font-weight:$med;
+    border: solid 2px $shadowcolor;
+    border-radius:$small-space-unit/2;
+	box-shadow:3px 3px 6px $shadowcolor;
+	&:hover {
+	box-shadow:2px 2px 4px $shadowcolor;
+
+	}
+
+
+
+}
+//==================================================
+//==================================================
+					// Header
+//==================================================
+//==================================================
+.page-content {
+	position: relative;
+	overflow: hidden;
+	width:auto;
+	max-width:$content-width;
+	@include margin($large-space-unit*2 $small-space-unit*1.7 0);
+	@media screen and (min-width:$tablet) {
+		@include margin(0 auto);
+		@include padding(0 $small-space-unit);
+
+	}
+	.post {
+		@include padding(0);
+		@include margin(0);
+	}
+}
+.site-header {
+	position:fixed;
+	top:0;
+	min-height:0;
+    @include gradient(white,$maincolor);
+	width:100%;
+	max-width:$content-width;
+	@include margin(0 auto);
+	z-index:3;
+	@include font(0.8);
+	@media screen and (min-width:$tablet) {
+		background:transparent;
+		position: relative;
+		overflow:hidden;
+		width: 100%;
+		min-height:1em;
+	}
+
+	.divider {
+		height:2px;
+		position: relative;
+		background: $secondcolor;
+		overflow:hidden;
+		@include padding(0);
+		@include margin(0 $small-space-unit * 2);
+		clear:both;
+		@media screen and (min-width:$tablet) {
+			@include margin(0 $small-space-unit);
+		}
+	}	
+
+	.site-title {
+		@include padding($small-space-unit * 2);
+		position: relative;
+		display: block;
+		@include font(0.8);
+		width: 15%;
+			
+		.top, .bottom {
+			font-family: $font;
+			position: relative;
+			display: block;
+			line-height: 0.75em;
+		}
+
+		.top {
+			font-weight: $demi;
+			color:$secondcolor;
+			@include font(2.85);
+			@include margin(0 auto);
+		}
+
+		.bottom {
+			font-weight: $light;
+			color:$secondcolor;
+			@include font(1.8);
+			opacity: .8;
+			letter-spacing: 2px;	
+			@include margin(0 1px);
+		}
+		
+		@media screen and (min-width:$tablet) {
+			display: none;
+		}	
+
+	}
+	
+	.menu-icon {
+		@include transform(rotate(-80deg));
+		@include font(2.3);
+		letter-spacing: -1px;
+		font-weight: $heavy;
+		color:$secondcolor;
+		position: absolute;
+		top: $small-space-unit * 1.2;
+		right:$small-space-unit * 1.5;
+
+		@media screen and (min-width:$tablet) {
+			display: none;
+		}
+	}
+
+	.trigger {
+		width: 100%;
+		position: fixed;
+		overflow: hidden;
+		@include padding($small-space-unit/2);
+	    opacity:0;
+	    height:0;
+	    top:4.55em;
+	    z-index: 100;
+	    background:transparent;
+		vertical-align: top;
+	   	transition: all 0.2s linear;
+
+
+		@media screen and (min-width:$tablet) {
+			position: relative;
+			top:0;
+	    	transition: all 0.5s linear;
+			@include margin($large-space-unit 0);
+			@include padding($small-space-unit $large-space-unit * 2);
+			height:2em;
+			opacity: 1;
+			clear:both;
+		}
+		@media screen and (min-width:$desktop) {
+	    	transition: all 0.5s linear;
+			@include padding($small-space-unit);
+
+
+		}
+		.login, 
+		.page-link {
+			font-family: $font;
+			display: inline-block;
+			text-align: center;
+			@include padding($large-space-unit * 2 0);
+
+			
+		}
+
+		.page-link {
+			@include font(1.6);
+			font-weight: $med;
+			width:45%;
+			// width: 100%;
+			@include margin(2.2%);
+    		// @include gradient(white,$fourthcolor);
+    		@include gradient(white,$maincolor);
+    		border: solid 2px $shadowcolor;
+    		letter-spacing: 2.5px;
+    		text-align: center;
+    		// opacity: .8;
+
+    		@media screen and (min-width:$tablet) {
+    			// opacity: 1;
+    			@include font(1.2);
+    			@include margin(0 4% 0 0);
+				@include padding(0);
+				text-align: left;
+				background:transparent;
+				border:none;
+				width:15%;
+				font-weight: $med;
+				// transition: none;
+
+			}
+		}
+		&.expand {
+			height:100em;
+			opacity: 1;
+	    	transition: all 0.5s linear;
+    		@include gradient(white,$maincolor);
+
+
+
+	    	// }
+	    	
+		}
+		.login {
+			font-weight: $demi;
+			@include font(1.3);
+			opacity: .7;
+			letter-spacing: 2px;
+			text-transform: uppercase;
+			width: 100%;
+			
+			@media screen and (min-width:$tablet) {
+				@include font(.9);
+				@include margin(0);
+				@include padding(0);
+				width: 18%;
+				text-align: right;
+				float: right;
+			}
+		}
+	}
+}
+
+
+
+
+
+
+

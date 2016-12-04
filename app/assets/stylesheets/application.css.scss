@@ -10,6 +10,17 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
  *= require_self
  */
+
+@import
+        "base",
+        "bourbon",
+        "1-partials",
+        "2-global",
+        "3-home", 
+        "4-faq",
+        "5-contact",
+        "6-login",
+        "8-pages",
+        "7-order"
