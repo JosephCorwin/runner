@@ -1,2 +1,40 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<% provide(:title, 'Sign up') %>
+<h1>Sign up</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@user) do |f| %>
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name %>
+
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name %>
+
+      <%= f.label :email %>
+      <%= f.email_field :email %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+
+      <%= f.label :password_confirmation, "Retype your password" %>
+      <%= f.password_field :password_confirmation %>
+
+      <%= f.label :adr_street, "Street Address" %>
+      <%= f.text_field :adr_street %>
+
+      <%= f.label :adr_street2, "Street Address 2" %>
+      <%= f.text_field :adr_street2 %>
+
+      <%= f.label :adr_city, "city" %>
+      <%= f.select :adr_street, options_for_select([["Olean", "Olean"]]) %>
+
+      <%= f.label :adr_state, "State" %>
+      <%= f.select :adr_state, options_for_select([["NY", "NY"]]) %>
+
+      <%= f.label :adr_zip, "Zip Code" %>
+      <%= f.text_field :adr_zip %>
+
+      <%= f.submit "Create my account", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
