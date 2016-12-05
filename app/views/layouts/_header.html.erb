@@ -14,11 +14,15 @@
 
       <div class="trigger">
           <%= link_to "Home", root_path %>
-          <%= link_to "Order", "#" %>
           <%= link_to "Contact", contact_path %>
           <%= link_to "FAQ", faq_path %>
-          <%= link_to "Login", "#" %>
-
+          <% if logged_in? %>
+            <%= link_to "Order", "#" %>
+            <%= link_to "Profile", profile_path %>
+            <%= link_to "Logout", logout_path, method: "delete" %>
+          <% else %>
+            <%= link_to "Login", login_path %>
+          <% end %>
       </div>
     </nav>
 

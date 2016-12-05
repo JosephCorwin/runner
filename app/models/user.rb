@@ -1,7 +1,7 @@
 class User < ApplicationRecord
 
   #callbacks
-  before_validation { self.status = "news" }
+  before_validation { self.status ||= "news" }
   before_save { self.email.downcase! }
   before_save { self.phone.gsub(/\D/, '')}
   
@@ -20,4 +20,10 @@ class User < ApplicationRecord
   #because duuuh
   has_secure_password
   validates :password, presence: true, length: { minimum: 8 }
+  #sloppy encryption for test suite
+  def User.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                  BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
 end
