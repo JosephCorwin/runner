@@ -1,10 +1,11 @@
 class User < ApplicationRecord
-  def initialize(attributes=Hash.new)
-    attr_with_defaults = {:status => "news"}.merge(attributes)
-    super(attr_with_defaults)
-  end
+
+  #callbacks
+  before_validation { self.status = "news" }
   before_save { self.email.downcase! }
   before_save { self.phone.gsub(/\D/, '')}
+  
+  #validation parameters
   validates :first_name, presence: true, length: { maximum: 64 }
   validates :last_name, presence: true, length: { maximum: 64 }
   #super awesome regex formatting
