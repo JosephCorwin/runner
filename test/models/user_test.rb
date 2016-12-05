@@ -3,7 +3,7 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
 
   def setup
-    @good_user = User.new(first_name: "Rodger",
+    @user = User.new(first_name: "Rodger",
 		         last_name: "Goodman",
 		         email: "rgoodman@example.com",
 		         phone: "7859635216",
@@ -13,46 +13,28 @@ class UserTest < ActiveSupport::TestCase
 		         adr_state: "TX",
 		         adr_zip: "78887",
 		         status: "good", )
-
-    @shit_user = User.new(first_name: "Ro(&dge''r#@!;;",
-		         last_name: "Shit---/?='fuckyou={{*'man",
-		         email: "rgo.od?man@examplecom/",
-		         phone: "lololololol",
-		         adr_street: "%%%%%coolstory_bro",
-		         adr_street2: "idgaf",
-		         adr_city: "shit*&[[stains];burg",
-		         adr_state: "FTW",
-		         adr_zip: "nnnnnn-oooo",
-		         status: "prob", )
-
-    @poor_user = User.new(first_name: "Rodger",
-		         last_name: "Poodman",
-		         email: "rroodman@examplecom",
-		         phone: "785.963-5216",
-		         adr_street: "123 Good pl",
-		         adr_street2: "Apt.",
-		         adr_city: "Goodtown",
-		         adr_state: "TX",
-		         adr_zip: "7888",
-		         status: "news", )
-
-    @goof_user = User.new(first_name: "Rodger" + " "*64,
-		         last_name: "",
-		         email: "",
-		         phone: "",
-		         adr_street: "",
-		         adr_street2: "",
-		         adr_city: "",
-		         adr_state: "",
-		         adr_zip: "",
-		         status: "", )
    end
    
-   test "no trouble in paradise" do
-     assert @good_user.valid?
-     assert_not @shit_user.valid?
-     assert_not @poor_user.valid?
-     assert_not @goof_user.valid?
+   test "user example passes" do
+     assert @user.valid?
+   end
+
+   test "first name not too long" do
+     @user.first_name = "a"*65
+     assert_not @user.valid?
+   end
+
+   test "last name not too long" do
+     @user.last_name = "a"*65
+     assert_not @user.valid?
+   end
+
+   test "phone strips out invalid characters" do
+     sorta_valid_phones = ["(785) 936-5216", "4(32)521(4432)", "%%%8512486957", ]
+     sorta_valid_phones.each do |sorta_valid|
+     	@user.phone = sorta_valid
+     	assert @user.valid?, "I guess #{sorta_valid.inspect} can work okay"
+     end
    end
 
 end
