@@ -1,6 +1,7 @@
 class User < ApplicationRecord
-  def init
-    self.status = "news" if self.status.nil?
+  def initialize(attributes=Hash.new)
+    attr_with_defaults = {:status => "news"}.merge(attributes)
+    super(attr_with_defaults)
   end
   before_save { self.email.downcase! }
   before_save { self.phone.gsub(/\D/, '')}
