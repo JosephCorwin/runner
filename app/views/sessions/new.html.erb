@@ -1,0 +1,16 @@
+<% provide(:title, "Log in") %>
+<div class="login">
+  <div class="grid">
+    <h2 class="title">Log In</h2>
+      <%= form_for(:session, url: login_path) do |f| %>
+
+        <%= f.label :email %>
+        <%= f.email_field :email, class: "input-reg" %>
+
+        <%= f.label :password %>
+        <%= f.password_field :password, class: "input-reg" %>
+
+        <%= f.submit "Log In", class: "button" %>
+      <% end %>
+  </div>
+</div>
