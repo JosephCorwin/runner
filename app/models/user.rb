@@ -12,4 +12,7 @@ class User < ApplicationRecord
   validates :adr_state, presence: true, length: { maximum: 2 }
   validates :adr_zip, presence: true, length: { minimum: 5, maximum: 15 }
   validates :status, presence: true, length: { maximum: 4 }
+  #because duuuh
+  has_secure_password
+  validates :password, presence: true, length: { minimum: 8 }
 end
