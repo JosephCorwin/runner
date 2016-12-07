@@ -36,6 +36,12 @@ test "login/logout cycle --full" do
     assert_select "a[href=?]", login_path
     assert_select "a[href=?]", logout_path,      count: 0
     assert_select "a[href=?]", profile_path,     count: 0
+    #what if they double browsin' tho?
+    delete logout_path
+    follow_redirect!
+    assert_select "a[href=?]", login_path
+    assert_select "a[href=?]", logout_path,      count: 0
+    assert_select "a[href=?]", user_path(@user), count: 0
   end
 
 end
