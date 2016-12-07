@@ -44,4 +44,18 @@ test "login/logout cycle --full" do
     assert_select "a[href=?]", user_path(@user), count: 0
   end
 
+  test "login with remembering" do
+    log_in_as(@user, remember_me: '1')
+    assert_equal cookies['remember_token'], assigns(:user).remember_token 
+  end
+
+  test "login without remembering" do
+    # Log in to set the cookie.
+    log_in_as(@user, remember_me: '1')
+    delete logout_path
+    # Log in again and assert the cookie is deleted.
+    log_in_as(@user, remember_me: '0')
+    assert_equal cookies['remember_token'], '' #remember_token is an empty string #shouldbenil
+  end
+
 end
