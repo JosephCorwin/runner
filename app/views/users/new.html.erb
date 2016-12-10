@@ -24,21 +24,6 @@
 
       <%= f.label :phone, "Phone Number" %>
       <%= f.text_field :phone, class: "input-reg" %>
-
-      <%= f.label :adr_street, "Street Address" %>
-      <%= f.text_field :adr_street, class: "input-reg" %>
-
-      <%= f.label :adr_street2, "Street Address 2" %>
-      <%= f.text_field :adr_street2, class: "input-reg" %>
-
-      <%= f.label :adr_city, "City" %>
-      <%= f.select :adr_city, options_for_select([["Olean", "Olean"]]), class: "input-reg" %>
-
-      <%= f.label :adr_state, "State" %>
-      <%= f.select :adr_state, options_for_select([["NY", "NY"]]), class: "input-reg" %>
-
-      <%= f.label :adr_zip, "Zip Code" %>
-      <%= f.text_field :adr_zip, class: "input-reg" %>
       
       <%= f.submit "Create my account", class: "button" %>
     <% end %>

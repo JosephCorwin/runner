@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
   #super awesome regex formatting
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-  CLEAN_PHONE_REGEX = /[.!@$%^&*()a-zA-z\s$[\]|'"~`]/
+  CLEAN_PHONE_REGEX = /[.!@$%^&*()a-zA-z\s$]/
 
   #callbacks
   before_validation { self.status ||= "news" }

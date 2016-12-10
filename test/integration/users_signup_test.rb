@@ -26,10 +26,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                           password:              "testpass123",
                                           password_confirmation: "testpass123",
                                           phone:                 "1234567890",
-                                          adr_street:            "123 Manoa blvd",
-                                          adr_city:              "Olean",
-                                          adr_state:             "NY",
-                                          adr_zip:               "12345",
                                           status:                "test" } }
     end
     follow_redirect!
