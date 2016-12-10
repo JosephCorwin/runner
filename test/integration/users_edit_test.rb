@@ -3,7 +3,8 @@ require 'test_helper'
 class UsersEditTest < ActionDispatch::IntegrationTest
   
   def setup
-    @user = users(:michael)
+    @user = users(         :michael)
+    @other_user = users(   :archer)
   end
 
   test "unsuccessful edit" do
@@ -52,6 +53,22 @@ class UsersEditTest < ActionDispatch::IntegrationTest
                                               last_name:  @user.last_name,
                                               email:      @user.email } }
     assert_redirected_to login_url
+  end
+
+  test "users should not be able to edit each other" do
+    log_in_as(@other_user)
+    get edit_user_path(@user)
+    assert flash.empty?
+    assert_redirected_to root_url
+  end
+
+  test "users really should not be able to edit each other" do
+    log_in_as(@other_user)
+    patch user_path(@user), params: { user: { first_name: @user.first_name,
+                                              last_name:  @user.last_name,
+                                              email:      @user.email } }
+    assert flash.empty?
+    assert_redirected_to root_url
   end
 
 end
