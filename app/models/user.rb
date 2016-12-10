@@ -2,23 +2,20 @@ class User < ApplicationRecord
 
   attr_accessor :remember_token
 
+  #super awesome regex formatting
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+  CLEAN_PHONE_REGEX = /[.!@$%^&*()a-zA-z\s$[\]|'"~`]/
+
   #callbacks
   before_validation { self.status ||= "news" }
   before_save { self.email.downcase! }
-  before_save { if self.phone && self.phone.match(/[.!@$%^&*()a-zA-z\s]/) then self.phone.gsub(/[.!@$%^&*()a-zA-z\s]/, '') end }
+  before_save { if self.phone && self.phone.match(CLEAN_PHONE_REGEX) then self.phone.gsub(CLEAN_PHONE_REGEX, '') end }
 
-  #super awesome regex formatting
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-  
   #validation parameters
   validates :first_name, presence: true, length: { maximum: 64 }
   validates :last_name, presence: true, length: { maximum: 64 }
   validates :email, presence: true,  length: { maximum: 65 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
   validates :phone, presence: true, length: { maximum: 15 }
-  validates :adr_street, presence: true, length: { maximum: 65 } 
-  validates :adr_city, presence: true, length: { maximum: 65 }
-  validates :adr_state, presence: true, length: { maximum: 2 }
-  validates :adr_zip, presence: true, length: { minimum: 5, maximum: 15 }
   validates :status, presence: true, length: { maximum: 4 }
   has_secure_password #because duuuh
   validates :password, presence: true, length: { minimum: 8 }
@@ -44,7 +41,7 @@ class User < ApplicationRecord
     return false if remember_digest.nil?
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
-  # i don't 'member no more!
+  # i don't wanna 'member no more!
   def forget
     update_attribute(:remember_digest, nil)
   end

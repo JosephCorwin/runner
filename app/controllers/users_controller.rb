@@ -29,11 +29,6 @@ class UsersController < ApplicationController
                                    :email, 
                                    :password, 
                                    :password_confirmation, 
-                                   :phone, 
-                                   :adr_street, 
-                                   :adr_street2, 
-                                   :adr_city, 
-                                   :adr_state, 
-                                   :adr_zip)
+                                   :phone
     end
 end
