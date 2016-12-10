@@ -18,7 +18,7 @@ class User < ApplicationRecord
   validates :phone, presence: true, length: { maximum: 15 }
   validates :status, presence: true, length: { maximum: 4 }
   has_secure_password #because duuuh
-  validates :password, presence: true, length: { minimum: 8 }
+  validates :password, presence: true, length: { minimum: 8 }, allow_nil: true
   
   #custom encryption parameters
   def User.digest(string)
