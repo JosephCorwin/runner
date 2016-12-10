@@ -1,12 +1,11 @@
-<% provide(:title, 'Sign up') %>
-<h1>Sign up</h1>
+<% provide(:title, "Edit user") %>
+<h1>Update your profile</h1>
 
 <div class="row">
   <div class="grid">
-    <%= form_for(@user, url: signup_path) do |f| %>
-     
+    <%= form_for(@user) do |f| %>
       <%= render 'shared/error_messages' %>
-      
+
       <%= f.label :first_name %>
       <%= f.text_field :first_name, class: "input-reg" %>
 
@@ -19,7 +18,7 @@
       <%= f.label :password %>
       <%= f.password_field :password, class: "input-reg" %>
 
-      <%= f.label :password_confirmation, "Retype your password" %>
+      <%= f.label :password_confirmation, "Confirmation" %>
       <%= f.password_field :password_confirmation, class: "input-reg" %>
 
       <%= f.label :phone, "Phone Number" %>
@@ -31,16 +30,8 @@
       <%= f.label :adr_street2, "Street Address 2" %>
       <%= f.text_field :adr_street2, class: "input-reg" %>
 
-      <%= f.label :adr_city, "City" %>
-      <%= f.select :adr_city, options_for_select([["Olean", "Olean"]]), class: "input-reg" %>
-
-      <%= f.label :adr_state, "State" %>
-      <%= f.select :adr_state, options_for_select([["NY", "NY"]]), class: "input-reg" %>
-
       <%= f.label :adr_zip, "Zip Code" %>
       <%= f.text_field :adr_zip, class: "input-reg" %>
-      
-      <%= f.submit "Create my account", class: "button" %>
+
+      <%= f.submit "Save changes", class: "btn btn-primary" %>
     <% end %>
-  </div>
-</div>
