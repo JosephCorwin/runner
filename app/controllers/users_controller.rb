@@ -13,8 +13,8 @@ before_action :logged_in_user, only: [:show, :edit, :update]
   def create
     @user = User.new(user_params)
     if @user.save
-       flash[:success] = "WooHoo!"
-       redirect_to @user
+       flash[:success] = "Check your email"
+       redirect_to root_url
     else
       render 'new'
     end

@@ -29,7 +29,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                           status:                "test" } }
     end
     follow_redirect!
-    assert_template 'users/show'
+    assert_template 'static/home'
     assert_select 'div.alert-success'
   end
 end

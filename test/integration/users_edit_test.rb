@@ -42,4 +42,16 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_equal email,       @user.email
   end
 
+  test "should redirect edit to login if not logged in" do
+    get edit_user_path(@user)
+    assert_redirected_to login_url
+  end
+
+  test "should redirect update to login if not logged in" do
+    patch user_path(@user), params: { user: { first_name: @user.first_name,
+                                              last_name:  @user.last_name,
+                                              email:      @user.email } }
+    assert_redirected_to login_url
+  end
+
 end
