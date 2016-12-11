@@ -21,3 +21,9 @@
 
 en:
   hello: "Hello world"
+
+en.user_mailer.account_activation.subject:
+  subject: "Activate your account!"
+
+en.user_mailer.password_reset.subject:
+  subject: "Reset you password!"
