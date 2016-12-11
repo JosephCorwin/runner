@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
 
+  get 'stores/index'
+
+  get 'stores/new'
+
+  get 'stores/edit'
+
+  get 'stores/show'
+
+  get 'stores/update'
+
+  get 'stores/destroy'
+
   get 'sessions/new'
 
   resources :users
