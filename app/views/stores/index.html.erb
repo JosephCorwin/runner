@@ -1,10 +1,14 @@
 <% provide(:title, "Store Index") %>
+
+<%= link_to "New Store", new_store_path %>
+
 <%= will_paginate %>
 
 <ul class="stores">
   <% @stores.each do |store| %>
     <li>
       <%= link_to store.name, store %>
+      <%= link_to "Delete Store", store, method: 'delete', data: { confirm: "Are you sure?" } %>
     </li>
   <% end %>
 </ul>

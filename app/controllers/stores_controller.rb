@@ -42,6 +42,13 @@ before_action :admin_only, only: [:index, :new, :edit, :update, :destroy]
     
   end
 
+  def destroy
+    Store.find(params[:id]).destroy
+    flash[:success] = "User deleted"
+    redirect_to stores_url
+  end
+
+
   private
 
     def store_params

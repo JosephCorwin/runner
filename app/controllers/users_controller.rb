@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
 before_action :logged_in_user, only: [:show, :edit, :update]
 before_action :correct_user, only:   [:show, :edit, :update]
-before_action :admin_only, only:     [:index]
+before_action :admin_only, only:     [:index, :destroy]
 
   def index
     @users = User.paginate(page: params[:page])
@@ -38,6 +38,12 @@ before_action :admin_only, only:     [:index]
       else
         render 'edit'
       end
+  end
+
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted"
+    redirect_to users_url
   end
 
   private

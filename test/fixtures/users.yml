@@ -6,6 +6,7 @@ michael:
   last_name:       Example
   email:           michael@example.com
   password_digest: <%= User.digest('password') %>
+  status:          good
 
 
 archer:
@@ -13,3 +14,18 @@ archer:
   last_name:       Archer
   email:           duchess@example.gov
   password_digest: <%= User.digest('password') %>
+  status:          prob
+
+clark:
+  first_name:      Clark
+  last_name:       Kent
+  email:           notsosuper@example.gov
+  password_digest: <%= User.digest('password') %>
+  status:          news
+
+boss:
+  first_name:      Boss
+  last_name:       Bobby
+  email:           bossman@example.gov
+  password_digest: <%= User.digest('password') %>
+  status:          boss

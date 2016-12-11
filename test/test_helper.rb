@@ -16,6 +16,11 @@ class ActiveSupport::TestCase
   def log_in_as(user)
     session[:user_id] = user.id
   end
+
+  def you_da_boss?(user)
+    user.status == 'boss'
+  end
+
 end
 
 #integration test helpers
@@ -27,5 +32,7 @@ class ActionDispatch::IntegrationTest
                                           password: password,
                                           remember_me: remember_me } }
   end
+
+  
 
 end

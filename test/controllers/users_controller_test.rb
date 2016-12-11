@@ -6,6 +6,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   def setup
     @user       = users(:michael)
     @other_user = users(:archer)
+    @boss       = users(:boss)
   end
 
  test "should get signup" do
@@ -37,6 +38,30 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
                                               email:      @user.email } }
     assert flash.empty?
     assert_redirected_to root_url
+  end
+
+  test "users really should not be able to delete each other" do
+    log_in_as(@other_user)
+    assert_no_difference 'User.count' do
+      delete user_path(@user)
+    end
+  end
+
+  test "admins can delete whoever they like" do
+    log_in_as(@boss)
+    assert_difference 'User.count', -1 do
+      delete user_path(@user)
+    end
+  end
+
+  test "should not allow the status attribute to be edited via the web" do
+    log_in_as(@other_user)
+    assert_not you_da_boss?(@other_user)
+    patch user_path(@other_user), params: {
+                                    user: { password:              'password',
+                                            password_confirmation: 'password',
+                                            status: 'boss' } }
+    assert_not_equal @other_user.status, 'boss'
   end
 
 end
