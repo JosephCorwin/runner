@@ -20,8 +20,8 @@ before_action :admin_only, only:     [:index, :destroy]
   def create
     @user = User.new(user_params)
     if @user.save
-       UserMailer.account_activation(@user).deliver_now
-       flash[:success] = "Check your email"
+       @user.send_activation_email
+       flash[:info] = "Check your email"
        redirect_to root_url
     else
       render 'new'

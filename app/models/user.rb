@@ -21,6 +21,16 @@ class User < ApplicationRecord
   validates :status, presence: true, length: { maximum: 4 }
   has_secure_password #because duuuh
   validates :password, presence: true, length: { minimum: 8 }
+
+  # Activates an account.
+  def activate
+    update_columns(activated: true, activated_at: Time.zone.now)
+  end
+
+  # Sends activation email.
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
   
   #custom encryption parameters
   def User.digest(string)
@@ -51,10 +61,13 @@ class User < ApplicationRecord
     BCrypt::Password.new(digest).is_password?(token)
   end
 
-  #prime the activation system
-  def create_activation_digest
-    self.activation_token  = User.new_token
-    self.activation_digest = User.digest(activation_token)
-  end
+  private
+
+    #prime the activation system
+    def create_activation_digest
+      self.activation_token  = User.new_token
+      self.activation_digest = User.digest(activation_token)
+    end
+
 
 end
