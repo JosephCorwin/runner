@@ -7,7 +7,8 @@ michael:
   email:           michael@example.com
   password_digest: <%= User.digest('password') %>
   status:          good
-
+  activated:       true
+  activated_at:    <%= Time.zone.now %>
 
 archer:
   first_name:      Sterling 
@@ -15,6 +16,8 @@ archer:
   email:           duchess@example.gov
   password_digest: <%= User.digest('password') %>
   status:          prob
+  activated:       true
+  activated_at:    <%= Time.zone.now %>
 
 clark:
   first_name:      Clark
@@ -22,6 +25,7 @@ clark:
   email:           notsosuper@example.gov
   password_digest: <%= User.digest('password') %>
   status:          news
+  activated:       false
 
 boss:
   first_name:      Boss
@@ -29,3 +33,5 @@ boss:
   email:           bossman@example.gov
   password_digest: <%= User.digest('password') %>
   status:          boss
+  activated:       true
+  activated_at:    <%= Time.zone.now %>

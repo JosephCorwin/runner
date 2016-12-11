@@ -1,6 +1,7 @@
 class User < ApplicationRecord
 
-  attr_accessor :remember_token
+  #tokens, bruh
+  attr_accessor :remember_token, :activation_token
 
   #super awesome regex formatting
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -10,6 +11,7 @@ class User < ApplicationRecord
   before_validation { self.status ||= "news" }
   before_save { self.email.downcase! }
   before_save { if self.phone && self.phone.match(CLEAN_PHONE_REGEX) then self.phone.gsub(CLEAN_PHONE_REGEX, '') end }
+  before_create :create_activation_digest
 
   #validation parameters
   validates :first_name, presence: true, length: { maximum: 64 }
@@ -18,7 +20,7 @@ class User < ApplicationRecord
   validates :phone, presence: true, length: { maximum: 15 }
   validates :status, presence: true, length: { maximum: 4 }
   has_secure_password #because duuuh
-  validates :password, presence: true, length: { minimum: 8 }, allow_nil: true
+  validates :password, presence: true, length: { minimum: 8 }
   
   #custom encryption parameters
   def User.digest(string)
@@ -44,6 +46,12 @@ class User < ApplicationRecord
   # i don't wanna 'member no more!
   def forget
     update_attribute(:remember_digest, nil)
+  end
+
+  #prime the activation system
+  def create_activation_digest
+    self.activation_token  = User.new_token
+    self.activation_digest = User.digest(activation_token)
   end
 
 end
