@@ -1,2 +1,14 @@
+<% provide(:title, "New Store") %>
+
 <h1>Stores#new</h1>
-<p>Find me in app/views/stores/new.html.erb</p>
+<%= form_for(@store) do |f| %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name, class: 'input-reg' %>
+
+  <%= f.label :addr_no %>
+  <%= f.text_field :addr_no, class: 'input-reg' %>
+
+  <%= f.submit "Add this store", class: 'button' %>
+
+<% end %>

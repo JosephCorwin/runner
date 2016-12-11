@@ -1,34 +1,25 @@
 require 'test_helper'
 
 class StoresControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get stores_index_url
-    assert_response :success
+  test "index should redirect for non-bosses" do
+    get stores_url
+    assert_redirected_to root_url
   end
 
-  test "should get new" do
-    get stores_new_url
-    assert_response :success
+  test "new should should redirect for non-bosses" do
+    get new_stores_path
+    assert_redirected_to root_url
   end
 
-  test "should get edit" do
-    get stores_edit_url
-    assert_response :success
+  test "edit should should redirect for non-bosses" do
+    get edit_stores_path
+    assert_redirected_to root_url
   end
 
   test "should get show" do
-    get stores_show_url
+    get store_url
     assert_response :success
   end
 
-  test "should get update" do
-    get stores_update_url
-    assert_response :success
-  end
-
-  test "should get destroy" do
-    get stores_destroy_url
-    assert_response :success
-  end
 
 end

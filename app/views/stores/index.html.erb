@@ -1,2 +1,12 @@
-<h1>Stores#index</h1>
-<p>Find me in app/views/stores/index.html.erb</p>
+<% provide(:title, "Store Index") %>
+<%= will_paginate %>
+
+<ul class="stores">
+  <% @stores.each do |store| %>
+    <li>
+      <%= link_to store.name, store %>
+    </li>
+  <% end %>
+</ul>
+
+<%= will_paginate %>

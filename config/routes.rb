@@ -1,21 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'stores/index'
-
-  get 'stores/new'
-
-  get 'stores/edit'
-
-  get 'stores/show'
-
-  get 'stores/update'
-
-  get 'stores/destroy'
-
-  get 'sessions/new'
-
-  resources :users
-
   root   'static#home'
 
   get    'about',   to: 'static#about'
@@ -32,5 +16,7 @@ Rails.application.routes.draw do
   post   'login',   to: 'sessions#create'
   delete 'logout',   to: 'sessions#destroy'
 
+  resources :users, :stores
+  resource  :users, :stores
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -1,4 +1,7 @@
 class StoresController < ApplicationController
+
+before_action :admin_only, only: [:index, :new, :edit, :update, :destroy]
+
   def index
     @stores = Store.paginate(page: params[:page])
   end
@@ -15,6 +18,16 @@ class StoresController < ApplicationController
     @store = Store.find(params[:id])
   end
 
+  def create
+    @store = Store.new(store_params)
+    if @store.save
+      flash[:success] = "Store added"
+      redirect_to stores_path
+    else
+      render new
+    end
+  end
+
   def update
     @store = Store.find(params[:id])
     if @store.update_attributes(store_params)
@@ -28,4 +41,18 @@ class StoresController < ApplicationController
   def destroy
     
   end
+
+  private
+
+    def store_params
+      params.require(:store).permit(:name, :addr_no)
+    end
+
+    def admin_only
+      unless logged_in? && you_da_boss?(@user)
+        flash[:danger] = "That's my purse I don't know you!"
+        redirect_to root_url
+      end
+    end
+
 end
