@@ -56,4 +56,9 @@ module SessionsHelper
     session[:forwarding_url] = request.original_url if request.get?
   end
 
+  #Check if you're the boss
+  def you_da_boss?(user)
+    @current_user[:status] == "boss"
+  end
+
 end

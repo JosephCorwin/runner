@@ -2,6 +2,11 @@ class UsersController < ApplicationController
 
 before_action :logged_in_user, only: [:show, :edit, :update]
 before_action :correct_user, only:   [:show, :edit, :update]
+before_action :admin_only, only:     [:index]
+
+  def index
+    @users = User.paginate(page: params[:page])
+  end
 
   def new
     @user = User.new
@@ -56,7 +61,14 @@ before_action :correct_user, only:   [:show, :edit, :update]
 
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
+      redirect_to(root_url) unless current_user?(@user) || you_da_boss?(@user)
+    end
+
+    def admin_only
+      unless logged_in? && you_da_boss?(@user)
+        flash[:danger] = "That's my purse I don't know you!"
+        redirect_to root_url
+      end
     end
 
 end
