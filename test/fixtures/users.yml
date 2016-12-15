@@ -5,7 +5,9 @@ michael:
   first_name:      Michael
   last_name:       Example
   email:           michael@example.com
+  phone:           1112223333
   password_digest: <%= User.digest('password') %>
+  reset_digest:    nil
   status:          good
   activated:       true
   activated_at:    <%= Time.zone.now %>

@@ -16,13 +16,14 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     get edit_user_path(@user)
     assert_template 'users/edit'
-    patch user_path(@user), params: { user: { name:  "",
-                                              email: "foo@invalid",
+    patch user_path(@user), params: { user: { first_name:            "",
+                                              last_name:             " ",
+                                              email:                 "foo@invalid",
                                               password:              "foo",
                                               password_confirmation: "bar" } }
 
     assert_template 'users/edit'
-    assert_select 'div.alert-danger', { text: "The form contains 4 errors." }
+    assert_select 'div.alert-danger', { text: "The form contains 5 errors." }
   end
 
   test "successful edit" do

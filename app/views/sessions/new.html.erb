@@ -8,6 +8,7 @@
         <%= f.email_field :email, class: "input-reg" %>
 
         <%= f.label :password %>
+        <%= link_to "forgot password?", new_password_reset_path, class: 'little-help' %>
         <%= f.password_field :password, class: "input-reg" %>
 
         <%= f.label :remember_me, class: "checkbox inline" do %>

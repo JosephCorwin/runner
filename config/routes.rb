@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'password_resets/new'
+
+  get 'password_resets/edit'
+
   #static controller routes
   root   'static#home'
   get    'about',   to: 'static#about'
@@ -13,12 +17,13 @@ Rails.application.routes.draw do
 
   get    'login',   to: 'sessions#new'
   post   'login',   to: 'sessions#create'
-  delete 'logout',   to: 'sessions#destroy'
+  delete 'logout',  to: 'sessions#destroy'
 
   #RESTful resources
   resources :users, :stores
   resource  :users, :stores
   resources :account_activations, only: [:edit]
+  resources :password_resets,     only: [:new, :create, :edit, :update]
  
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
