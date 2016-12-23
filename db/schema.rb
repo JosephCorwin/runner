@@ -34,11 +34,6 @@ ActiveRecord::Schema.define(version: 20161222085955) do
     t.index ["runner_id"], name: "index_orders_on_runner_id", using: :btree
   end
 
-  create_table "profiles", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "runners", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at", null: false

@@ -1,8 +1,8 @@
 class User < ApplicationRecord
 
   #relations, far and wide
-  has_one :runner
-  has_one :customer
+  has_one :runner,   dependent: :destroy
+  has_one :account,  dependent: :destroy, class_name: 'Customer'
 
   #tokens, bruh
   attr_accessor :remember_token, :activation_token, :reset_token
@@ -16,6 +16,7 @@ class User < ApplicationRecord
   before_save { self.email.downcase! }
   before_save { if self.phone && self.phone.match(CLEAN_PHONE_REGEX) then self.phone.gsub(CLEAN_PHONE_REGEX, '') end }
   before_create :create_activation_digest
+  after_create { self.create_account! }
 
   #validation parameters
   validates :first_name, presence: true, length: { maximum: 64 }
@@ -80,6 +81,21 @@ class User < ApplicationRecord
     UserMailer.password_reset(self).deliver_now
   end
 
+  #employee management
+  def is_hired?
+    return true if self.runner and self.status == 'runn'
+  end
+
+  def is_hired!
+    update_attribute(:status, 'runn')
+    create_runner! unless self.runner
+  end
+
+  def is_fired!
+    update_attribute(:status, 'prob')
+    
+  end
+
   private
 
     #prime the activation system
@@ -87,6 +103,5 @@ class User < ApplicationRecord
       self.activation_token  = User.new_token
       self.activation_digest = User.digest(activation_token)
     end
-
 
 end
