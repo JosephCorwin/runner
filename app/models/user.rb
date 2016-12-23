@@ -1,9 +1,13 @@
 class User < ApplicationRecord
 
+  #relations, far and wide
+  has_one :runner
+  has_one :customer
+
   #tokens, bruh
   attr_accessor :remember_token, :activation_token, :reset_token
 
-  #super awesome regex formatting
+  #regex formatting parameters
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   CLEAN_PHONE_REGEX = /[.!@$%^&*()a-zA-z\s$]/
 
