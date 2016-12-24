@@ -29,9 +29,21 @@ class User < ApplicationRecord
   has_secure_password #because duuuh
   validates :password, presence: true, length: { minimum: 8 }
 
-  # Activates an account.
-  def activate
+  #account activation methods
+  def activate!
     update_columns(activated: true, activated_at: Time.zone.now)
+  end
+
+  def deactivate!
+    update_attribute(:activated, false)
+  end
+
+  def activated?
+    return true if self.activated == true
+  end
+
+  def deactivated?
+    return true if self.activated == false && self.activated_at
   end
 
   # Sends activation email.
