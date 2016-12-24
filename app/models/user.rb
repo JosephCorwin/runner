@@ -3,6 +3,8 @@ class User < ApplicationRecord
   #relations, far and wide
   has_one :runner,   dependent: :destroy
   has_one :account,  dependent: :destroy, class_name: 'Customer'
+  has_many :orders, through: :account
+  has_many :orders, through: :runner
 
   #tokens, bruh
   attr_accessor :remember_token, :activation_token, :reset_token

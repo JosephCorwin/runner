@@ -1,15 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'orders/new'
-
-  get 'orders/edit'
-
-  get 'orders/update'
-
-  get 'orders/create'
-
-  get 'orders/show'
-
   get 'password_resets/new'
 
   get 'password_resets/edit'
@@ -30,8 +20,8 @@ Rails.application.routes.draw do
   delete 'logout',  to: 'sessions#destroy'
 
   #RESTful resources
-  resources :users, :stores
-  resource  :users, :stores
+  resources :users, :stores, :orders
+  resource  :users, :stores, :orders
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
  

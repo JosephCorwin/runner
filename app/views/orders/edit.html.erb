@@ -1,2 +1,11 @@
-<h1>Orders#edit</h1>
-<p>Find me in app/views/orders/edit.html.erb</p>
+<% provide(:title, "Assign a runner") %>
+<div class="row">
+  <div class="grid">
+    <%= form_for(@order) do |f|%>
+      <%= f.label :runner_id, "Who should take this" %>
+      <%= f.collection_select(Runner.all, :id, User.find(user_id).first_name.to_s) %>
+
+      <%= f.submit "Place your order!" %>
+    <% end %>
+  </div>
+</div>

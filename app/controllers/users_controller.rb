@@ -69,7 +69,7 @@ before_action :admin_only, only:     [:index, :destroy]
 
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user) || you_da_boss?(@user)
+      redirect_to(root_url) unless current_user?(@user) || you_da_boss?(@current_user)
     end
 
     def admin_only
