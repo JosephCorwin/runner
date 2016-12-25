@@ -57,8 +57,8 @@ module SessionsHelper
   end
 
   #Check if you're the boss
-  def you_da_boss?(user)
-    @current_user[:status] == "boss"
+  def you_da_boss?(user = current_user)
+    user[:status] == "boss"
   end
 
 end

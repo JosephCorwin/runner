@@ -1,10 +1,17 @@
 <% provide(:title, "Assign a runner") %>
 <div class="row">
   <div class="grid">
+    
+    <%= render('orders/details') %>
+    
     <%= form_for(@order) do |f|%>
+      
       <%= f.label :runner_id, "Who should take this" %>
-      <%= f.collection_select(Runner.all, :id, User.find(user_id).first_name.to_s) %>
-
+      
+      <%= select(:order, :runner_id, Runner.joins(:user).collect { |r| [r.user.email, r.id] }) %>
+      <%= f.label :where_to_get, "This can be obtained from" %>
+      <%= f.text_area :where_to_get, placeholder: "Be specific" %>
+      
       <%= f.submit "Place your order!" %>
     <% end %>
   </div>

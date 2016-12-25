@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 before_action :logged_in_user, only: [:show, :edit, :update]
 before_action :correct_user, only:   [:show, :edit, :update]
 before_action :admin_only, only:     [:index, :destroy]
+before_action :set_user, only:       [:show, :edit, :update]
 
   def index
     @users = User.paginate(page: params[:page])
@@ -13,7 +14,6 @@ before_action :admin_only, only:     [:index, :destroy]
   end
 
   def show
-    @user = User.find(params[:id])
     redirect_to root_url and return unless @user.activated?
   end
 
@@ -29,11 +29,9 @@ before_action :admin_only, only:     [:index, :destroy]
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user=User.find(params[:id])
       if @user.update_attributes(user_params)
         flash[:success] = "Account info updated!"
         redirect_to @user
@@ -49,7 +47,11 @@ before_action :admin_only, only:     [:index, :destroy]
   end
 
   private
-    
+
+    def set_user
+      @user = User.find(params[:id])
+    end
+
     def user_params
       params.require(:user).permit(:first_name,
                                    :last_name, 
@@ -69,11 +71,11 @@ before_action :admin_only, only:     [:index, :destroy]
 
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user) || you_da_boss?(@current_user)
+      redirect_to(root_url) unless current_user?(@user) || you_da_boss?
     end
 
     def admin_only
-      unless logged_in? && you_da_boss?(@user)
+      unless logged_in? && you_da_boss?
         flash[:danger] = "That's my purse I don't know you!"
         redirect_to root_url
       end

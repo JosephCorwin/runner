@@ -24,17 +24,22 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     @random_email = (1..5).to_a.shuffle.join + '@' + (1..5).to_a.shuffle.join + '.com'
     get signup_path
     assert_select 'form[action="/signup"]'
-    assert_difference 'User.count', 1 do
-      post signup_path, params: { user: { first_name:            "John",
-                                          last_name:             "Peterson",
-                                          email:                 @random_email,
-                                          password:              "testpass123",
-                                          password_confirmation: "testpass123",
-                                          phone:                 "1234567890",
-                                          status:                "test" } }
+    #creating a user automatically creates a customer account    
+    assert_difference 'Customer.count', 1 do
+      assert_difference 'User.count', 1 do
+        post signup_path, params: { user: { first_name:            "John",
+                                            last_name:             "Peterson",
+                                            email:                 @random_email,
+                                            password:              "testpass123",
+                                            password_confirmation: "testpass123",
+                                            phone:                 "1234567890",
+                                            status:                "boss" } }
+      end
     end
     assert_equal 1, ActionMailer::Base.deliveries.size
     user = assigns(:user)
+    #attempted admin hack thwarted
+    assert_equal user.status, 'news'
     # you can't log in yet
     log_in_as(user)
     assert_not logged_in?

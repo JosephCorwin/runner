@@ -3,8 +3,6 @@ class User < ApplicationRecord
   #relations, far and wide
   has_one :runner,   dependent: :destroy
   has_one :account,  dependent: :destroy, class_name: 'Customer'
-  has_many :orders, through: :account
-  has_many :orders, through: :runner
 
   #tokens, bruh
   attr_accessor :remember_token, :activation_token, :reset_token
@@ -29,9 +27,9 @@ class User < ApplicationRecord
   has_secure_password #because duuuh
   validates :password, presence: true, length: { minimum: 8 }
 
-  #account activation methods
+  #account (de)activation methods
   def activate!
-    update_columns(activated: true, activated_at: Time.zone.now)
+    update_columns(activated: true, activated_at: Time.zone.now, status: 'good')
   end
 
   def deactivate!
@@ -46,12 +44,12 @@ class User < ApplicationRecord
     return true if self.activated == false && self.activated_at
   end
 
-  # Sends activation email.
+  #does what it says
   def send_activation_email
     UserMailer.account_activation(self).deliver_now
   end
   
-  #custom encryption parameters
+  #low-budget encryption parameters
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
@@ -68,8 +66,7 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, User.digest(remember_token))
   end
 
-  # i don't wanna 'member no more!
-  def forget
+  def forget #i don't wanna 'member no more!
     update_attribute(:remember_digest, nil)
   end
 
@@ -111,7 +108,7 @@ class User < ApplicationRecord
   end
 
   private
-
+    
     #prime the activation system
     def create_activation_digest
       self.activation_token  = User.new_token

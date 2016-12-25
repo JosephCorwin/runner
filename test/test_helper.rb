@@ -15,11 +15,14 @@ class ActiveSupport::TestCase
   # Log in as a particular user.
   def log_in_as(user)
     session[:user_id] = user.id
+    @current_user = user
   end
 
   def you_da_boss?(user)
     user.status == 'boss'
   end
+
+
 
 end
 

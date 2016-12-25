@@ -1,0 +1,6 @@
+<h1>Order for <%= @order.customer.user.first_name %></h1>
+
+    <h2>Assigned to: <%= @order.runner.user.first_name + ' ' + @order.runner.user.last_name %></h2>
+
+    <h3>What they want</h3>
+    <p><%= @order.what_they_want %></p>

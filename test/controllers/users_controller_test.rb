@@ -9,8 +9,28 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     @boss       = users(:boss)
   end
 
- test "should get signup" do
+  test "should get signup" do
     get signup_url
+    assert_response :success
+  end
+
+  test "users should be able to see themself" do
+    log_in_as(@user)
+    get user_path(@user)
+    assert_response :success
+  end
+
+  test "users should not be able to see each other" do
+    log_in_as(@user)
+    get user_path(@other_user)
+    assert_redirected_to root_url
+  end
+
+  test "bosses should be able to see anyone" do
+    log_in_as(@boss)
+    get user_path(@user)
+    assert_response :success
+    get user_path(@other_user)
     assert_response :success
   end
 
