@@ -44,7 +44,7 @@ before_action :admin_only, only: [:index, :new, :edit, :update, :destroy]
 
   def destroy
     Store.find(params[:id]).destroy
-    flash[:success] = "User deleted"
+    flash[:success] = "Store deleted"
     redirect_to stores_url
   end
 
@@ -56,7 +56,7 @@ before_action :admin_only, only: [:index, :new, :edit, :update, :destroy]
     end
 
     def admin_only
-      unless logged_in? && you_da_boss?(@user)
+      unless logged_in? && you_da_boss?
         flash[:danger] = "That's my purse I don't know you!"
         redirect_to root_url
       end

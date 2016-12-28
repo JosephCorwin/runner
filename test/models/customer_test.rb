@@ -8,9 +8,13 @@ class CustomerTest < ActiveSupport::TestCase
 
   test "sanity" do
     #user method to create customer account works
-    assert_difference 'Customer.count', 1 do
-      @user.create_account!
+    @account1 = @user.account
+    assert @account1
+    assert_no_difference 'Customer.count' do
+      @account2 = @user.add_customer_account
     end
+    assert_equal @account1, @user.account
+    assert_not @account2
   end
   
 end

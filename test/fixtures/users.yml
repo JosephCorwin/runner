@@ -19,7 +19,7 @@ archer:
   email:           duchess@example.com
   phone:           1234567890
   password_digest: <%= User.digest('password') %>
-  status:          prob
+  status:          good
   activated:       true
   activated_at:    <%= Time.zone.now %>
 

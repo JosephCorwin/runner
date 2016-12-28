@@ -16,7 +16,7 @@ class User < ApplicationRecord
   before_save { self.email.downcase! }
   before_save { if self.phone && self.phone.match(CLEAN_PHONE_REGEX) then self.phone.gsub(CLEAN_PHONE_REGEX, '') end }
   before_create :create_activation_digest
-  after_create { self.create_account! }
+  after_create { self.add_customer_account }
 
   #validation parameters
   validates :first_name, presence: true, length: { maximum: 64 }
@@ -107,6 +107,11 @@ class User < ApplicationRecord
     
   end
 
+  #add customers with confidence
+  def add_customer_account
+    self.create_account! unless self.account
+  end
+
   private
     
     #prime the activation system
@@ -114,5 +119,5 @@ class User < ApplicationRecord
       self.activation_token  = User.new_token
       self.activation_digest = User.digest(activation_token)
     end
-
+    
 end

@@ -30,7 +30,11 @@ before_action :correct_user,   only: [:show]
     if @order.save
       flash[:info] = "Order placed"
       redirect_to @order
+    else
+      flash[:warning] = "Order could not be placed"
+      render 'new'
     end
+    
 
   end
 

@@ -16,9 +16,10 @@ class ActiveSupport::TestCase
   def log_in_as(user)
     session[:user_id] = user.id
     @current_user = user
+    byebug
   end
 
-  def you_da_boss?(user)
+  def you_da_boss?(user = @current_user)
     user.status == 'boss'
   end
 

@@ -2,7 +2,7 @@
 <ol>
 <% @orders.each do |o| %>
   <li><%= o.customer.user.first_name %> wants <%= o.what_they_want.truncate(27, separator: ' ') %>.
-      <%= content_tag(:span, '', class: 'redbox') if o.runner.user.first_name == "Optimus" %>
+      <%= content_tag(:span, '', class: 'alert box') if o.runner.user.first_name == "Optimus" %>
       <%= o.runner.user.first_name %> is assigned.
       <%= link_to "Assign a different runner", edit_order_path(o) %>
   </li>

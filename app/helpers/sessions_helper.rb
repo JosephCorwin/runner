@@ -13,7 +13,7 @@ module SessionsHelper
   #set the user
   def current_user
     if (user_id = session[:user_id]) #user is logged_in
-      @current_user ||= User.find_by(id: session[:user_id])
+      @current_user ||= User.find_by(id: user_id)
     elsif (user_id = cookies.signed[:user_id]) #user has session cookie
       user = User.find_by(id: user_id)
       if user && user.authenticated?(:remember, cookies[:remember_token])
@@ -57,8 +57,9 @@ module SessionsHelper
   end
 
   #Check if you're the boss
-  def you_da_boss?(user = current_user)
-    user[:status] == "boss"
+  def you_da_boss?
+    current_user
+    @current_user.status == "boss"
   end
 
 end
