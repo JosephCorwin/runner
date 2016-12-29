@@ -1,3 +1,6 @@
 <% provide(:title, @user.first_name + ' ' + @user.last_name) %>
 
 <p>Welcome, <%= @user.first_name %>!</p>
+
+<%= link_to "Reset your password", password_reset_url %>
+
